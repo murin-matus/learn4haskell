@@ -523,6 +523,38 @@ After defining the city, implement the following functions:
    complicated task, walls can be built only if the city has a castle
    and at least 10 living __people__ inside in all houses of the city in total.
 -}
+
+type Castle = String 
+type Wall = Bool
+data Building = Church | Library
+data House = One | Two | Three | Four 
+
+data City = MkCity
+  {
+    castle :: Castle
+  , building :: Building
+  , houses :: [House]
+  , wall :: Wall
+  } 
+
+buildCastle :: City -> Castle -> City
+buildCastle city name = city { castle = name }
+
+buildHouse :: City -> House -> City
+buildHouse city house = city { houses = house : houses city }
+
+houseCount :: House -> Int
+houseCount house = case house of
+  One -> 1
+  Two -> 2
+  Three -> 3
+  Four -> 4
+
+buildWall :: City -> City
+buildWall city = if (sum (map houseCount (houses city))) >= 10 && (castle city) != ""
+                 then city { wall = True }
+                 else city
+
 {-
 =🛡= Newtypes
 
