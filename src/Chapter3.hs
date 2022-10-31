@@ -344,6 +344,12 @@ of a book, but you are not limited only by the book properties we described.
 Create your own book type of your dreams!
 -}
 
+data Book = MkBook
+    { name :: String
+    , publishDate  :: Int
+    , author :: String
+    } deriving (Show)
+
 {- |
 =⚔️= Task 2
 
@@ -351,6 +357,7 @@ Prepare to defend the honour of our kingdom! A monster attacks our brave knight.
 Help him to fight this creature!
 
 Define data types for Knights and Monsters, and write the "fight" function.
+
 
 Both a knight and a monster have the following properties:
 
@@ -375,6 +382,28 @@ after the fight. The battle has the following possible outcomes:
 ♫ NOTE: In this task, you need to implement only a single round of the fight.
 
 -}
+
+data Knight = MkKnight
+    { 
+      knightHealth :: Int
+    , knightAttack :: Int
+    , knightGold :: Int
+    } deriving (Show)
+
+data Monster = MkMonster
+    { 
+      monsterHealth :: Int
+    , monsterAttack :: Int
+    , monsterGold :: Int
+    } deriving (Show)
+
+fight :: Knight -> Monster -> Int
+fight (MkKnight kHealth kAttack kGold) (MkMonster mHealth mAttack mGold) = 
+  if kAttack >= mHealth
+  then kGold + mGold
+  else if mAttack >= kHealth
+       then -1
+       else kGold
 
 {- |
 =🛡= Sum types
@@ -462,6 +491,19 @@ Create a simple enumeration for the meal types (e.g. breakfast). The one who
 comes up with the most number of names wins the challenge. Use your creativity!
 -}
 
+data MealType
+    = MorningTea
+    | Breakfast
+    | Brunch
+    | Elevenses
+    | Supper
+    | Lunch
+    | AfternoonTea
+    | Dinner
+    | HighTea
+    | Snack
+    | MidnightSnack
+
 {- |
 =⚔️= Task 4
 
@@ -481,7 +523,6 @@ After defining the city, implement the following functions:
    complicated task, walls can be built only if the city has a castle
    and at least 10 living __people__ inside in all houses of the city in total.
 -}
-
 {-
 =🛡= Newtypes
 
